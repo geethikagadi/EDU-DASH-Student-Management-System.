@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reports Module</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #283e51, #485563);
+  min-height: 100vh;
+}
+
+header {
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  font-size: 22px;
+}
+
+header button {
+  margin-top: 8px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+  margin-bottom: 30px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #f1f5f9;
+}
+
+.status-present {
+  color: green;
+  font-weight: bold;
+}
+
+.status-absent {
+  color: red;
+  font-weight: bold;
+}
+
+.action-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 2px;
+}
+
+.edit-btn { background: #f59e0b; color: #fff; }
+.delete-btn { background: #ef4444; color: #fff; }
+
+.edit-form input {
+  width: 90%;
+  padding: 5px;
+  margin: 2px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.edit-form button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  Reports Module
+  <br>
+  <button onclick="goBack()">⬅ Back to Dashboard</button>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Student Attendance Summary</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Reg No</th>
+          <th>Course</th>
+          <th>Total Classes</th>
+          <th>Present</th>
+          <th>Absent</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="attendanceSummary"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Course Results Summary</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Reg No</th>
+          <th>Course</th>
+          <th>Subject</th>
+          <th>Marks</th>
+          <th>Grade</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="resultsSummary"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+let attendanceData = [
+  {name:'John Doe', reg:'101', course:'Math', total:30, present:28, absent:2},
+  {name:'Jane Smith', reg:'102', course:'Physics', total:30, present:25, absent:5},
+  {name:'Alice', reg:'103', course:'Chemistry', total:30, present:30, absent:0}
+];
+
+let resultsData = [
+  {name:'John Doe', reg:'101', course:'Math', subject:'Algebra', marks:85},
+  {name:'Jane Smith', reg:'102', course:'Physics', subject:'Mechanics', marks:72},
+  {name:'Alice', reg:'103', course:'Chemistry', subject:'Organic', marks:90}
+];
+
+let editAttendanceIndex = -1;
+let editResultIndex = -1;
+
+/* Render Attendance Table */
+function renderAttendanceSummary() {
+  const tbody = document.getElementById('attendanceSummary');
+  tbody.innerHTML = '';
+  attendanceData.forEach((a, i) => {
+    tbody.innerHTML += `<tr>
+      <td>${a.name}</td>
+      <td>${a.reg}</td>
+      <td>${a.course}</td>
+      <td>${a.total}</td>
+      <td class="status-present">${a.present}</td>
+      <td class="status-absent">${a.absent}</td>
+      <td>
+        <button class="action-btn edit-btn" onclick="editAttendance(${i})">Edit</button>
+        <button class="action-btn delete-btn" onclick="deleteAttendance(${i})">Delete</button>
+      </td>
+    </tr>`;
+  });
+}
+
+/* Render Results Table */
+function renderResultsSummary() {
+  const tbody = document.getElementById('resultsSummary');
+  tbody.innerHTML = '';
+  resultsData.forEach((r, i) => {
+    let grade = r.marks >= 90 ? 'A+' :
+                r.marks >= 80 ? 'A' :
+                r.marks >= 70 ? 'B' :
+                r.marks >= 60 ? 'C' : 'F';
+    tbody.innerHTML += `<tr>
+      <td>${r.name}</td>
+      <td>${r.reg}</td>
+      <td>${r.course}</td>
+      <td>${r.subject}</td>
+      <td>${r.marks}</td>
+      <td>${grade}</td>
+      <td>
+        <button class="action-btn edit-btn" onclick="editResult(${i})">Edit</button>
+        <button class="action-btn delete-btn" onclick="deleteResult(${i})">Delete</button>
+      </td>
+    </tr>`;
+  });
+}
+
+/* Attendance Actions */
+function editAttendance(i) {
+  const a = attendanceData[i];
+  let newPresent = prompt("Enter number of classes present:", a.present);
+  let newAbsent = prompt("Enter number of classes absent:", a.absent);
+  if (newPresent !== null && newAbsent !== null) {
+    a.present = parseInt(newPresent);
+    a.absent = parseInt(newAbsent);
+    renderAttendanceSummary();
+  }
+}
+
+function deleteAttendance(i) {
+  if (confirm("Delete this attendance record?")) {
+    attendanceData.splice(i,1);
+    renderAttendanceSummary();
+  }
+}
+
+/* Results Actions */
+function editResult(i) {
+  const r = resultsData[i];
+  let newMarks = prompt(`Enter marks for ${r.name} (${r.subject}):`, r.marks);
+  if (newMarks !== null) {
+    r.marks = parseInt(newMarks);
+    renderResultsSummary();
+  }
+}
+
+function deleteResult(i) {
+  if (confirm("Delete this result record?")) {
+    resultsData.splice(i,1);
+    renderResultsSummary();
+  }
+}
+
+function goBack() {
+  window.location.href = "dashboard.html";
+}
+
+/* Initial Render */
+renderAttendanceSummary();
+renderResultsSummary();
+</script>
+
+</body>
+</html>

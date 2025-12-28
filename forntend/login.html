@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EDU DASH Login</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, navy, red);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background: white;
+      padding: 30px;
+      width: 450px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .section {
+      margin-bottom: 25px;
+    }
+
+    .section p {
+      font-weight: bold;
+      color: #7a2d5c;
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 8px auto;
+      display: block;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 12px 25px;
+      background: #7b5cff;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #6244cc;
+    }
+
+    hr {
+      margin: 25px 0;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="login-box">
+  <h2>EDU DASH Login</h2>
+
+  <!-- STAFF LOGIN -->
+  <div class="section">
+    <p>Admin / Staff Login</p>
+    <input type="text" id="adminUser" placeholder="Username">
+    <input type="password" id="adminPass" placeholder="Password">
+    <button onclick="loginAdmin()">Login as Staff</button>
+  </div>
+
+  <hr>
+
+  <!-- STUDENT LOGIN -->
+  <div class="section">
+    <p>Student Login</p>
+    <input type="text" id="studentUser" placeholder="Username">
+    <input type="password" id="studentPass" placeholder="Password">
+    <button onclick="loginStudent()">Login as Student</button>
+  </div>
+</div>
+
+<script>
+  function loginAdmin() {
+    const u = document.getElementById("adminUser").value.trim();
+    const p = document.getElementById("adminPass").value.trim();
+
+    if (u !== "" && p !== "") {
+      window.location.href = "dashboard.html";
+    } else {
+      alert("Please enter Admin/Staff credentials");
+    }
+  }
+
+  function loginStudent() {
+    const u = document.getElementById("studentUser").value.trim();
+    const p = document.getElementById("studentPass").value.trim();
+
+    if (u !== "" && p !== "") {
+      window.location.href = "student_dashboard.html";
+    } else {
+      alert("Please enter Student credentials");
+    }
+  }
+</script>
+
+</body>
+</html>

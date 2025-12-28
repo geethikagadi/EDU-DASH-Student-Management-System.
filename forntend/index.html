@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EDU-DASH Management system</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  body {
+    background: linear-gradient(135deg, #5c76eb, #764ba2);
+    background-image:url("images/image.png");
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* NAVBAR */
+  nav {
+    background: rgba(0,0,0,0.3);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  nav h1 {
+    font-size: 24px;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+
+  nav ul li a:hover {
+    color: #ffd700;
+  }
+
+  /* MAIN CONTENT */
+  .hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .hero h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  .hero p {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+
+  .hero button {
+    padding: 12px 25px;
+    font-size: 18px;
+    background: #ffd700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .hero button:hover {
+    background: #ffc107;
+  }
+
+  /* ABOUT SECTION */
+  .about {
+    background: rgba(0,0,0,0.2);
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  .about h3 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  .about p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: auto;
+  }
+
+  /* FOOTER */
+  footer {
+    background: rgba(0,0,0,0.3);
+    padding: 15px 0;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  footer span {
+    color: #ffd700;
+    font-weight: bold;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="login.html">Login</a></li>
+  </ul>
+</nav>
+<img src="https://share.google/tDeKqoFvy5lPveaJQ"></img>
+
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+  <h2>Welcome to  EDU-DASH </h2>
+  <p>Manage students, courses, attendance, results, and reports efficiently with our web-based system.</p>
+  <button onclick="location.href='login.html'">Login</button>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="about" id="about">
+  <h3>About This System</h3>
+  <p>
+    This Student Management System allows administrators and students to manage academic activities in a centralized platform.  
+    Features include student registration, course management, attendance tracking, result processing, and reporting.
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  &copy; <span>2025</span> Student Management System. All Rights Reserved.
+</footer>
+
+</body>
+</html>
